@@ -25,41 +25,49 @@ fn read_input(path:&str){
             ).collect()
         ).collect()
     ).collect();
-    let mut possible_games_sum = 0;
+    // let mut possible_games_sum = 0;
+    let mut set_power = 0;
+    let mut power_sum = 0;
     for index in 0..game_ids.len(){
         println!("game_id:{}",game_ids[index]);
-        let mut is_game_possible = true;
-        // let mut red = 0;
-        // let mut green = 0;
-        // let mut blue = 0;
+        // let mut is_game_possible = true;
+        let mut red = Vec::<i32>::new();
+        let mut green = Vec::<i32>::new();
+        let mut blue = Vec::<i32>::new();
         for colors in &cube_subsets[index]{
             for color in colors{
                 let number_of_cubes:i32= color.0.parse().unwrap();
                 let cube_color = color.1;
                 // println!("{number_of_cubes}:{cube_color}");
-                is_game_possible = match cube_color {
-                    "red"=> number_of_cubes <= 12,
-                    "green"=> number_of_cubes <= 13,
-                    "blue"=> number_of_cubes <= 14,
-                    _ => false
+                match cube_color {
+                    "red"=> red.push(number_of_cubes),
+                    "green"=> green.push(number_of_cubes),
+                    "blue"=> blue.push(number_of_cubes),
+                    _ => ()
                 };
-                if !is_game_possible{
-                    break;
-                }
+                // if !is_game_possible{
+                //     break;
+                // }
             }
-            if !is_game_possible{
-                break;
-            }
+            // if !is_game_possible{
+            //     break;
+            // }
         }
+        let min_red = red.iter().max().unwrap();
+        let min_green = green.iter().max().unwrap();
+        let min_blue = blue.iter().max().unwrap();
+        set_power = min_red * min_green * min_blue;
+        power_sum += set_power;
         // println!("red:{red}");
         // println!("green:{green}");
         // println!("blue:{blue}");
-        if is_game_possible{
-            println!("{}",game_ids[index]);
-            possible_games_sum += game_ids[index];
-        }
+        // if is_game_possible{
+        //     println!("{}",game_ids[index]);
+        //     possible_games_sum += game_ids[index];
+        // }
+        println!("{set_power}");
     }
-    println!("{possible_games_sum}");
+    println!("{power_sum}");
     // for cube_subset in cube_subsets{
     //     for colors in cube_subset{
     //         for color in colors{
