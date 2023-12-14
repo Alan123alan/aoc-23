@@ -22,18 +22,22 @@ fn main() {
                 let map_destination: i64= map[0].clone().parse().unwrap();
                 let map_source: i64 = map[1].clone().parse().unwrap();
                 let map_range: i64 =map[2].clone().parse().unwrap();
-                let mut destination_expansion: Vec<i64> = Vec::new();
-                let mut source_expansion: Vec<i64> = Vec::new();
+                // let mut destination_expansion: Vec<i64> = Vec::new();
+                // let mut source_expansion: Vec<i64> = Vec::new();
                 // println!("Destination:{}, Source:{}, range:{}", map_destination, map_source, map_range);
-                for i in 0..map_range{
-                    destination_expansion.push(map_destination+i);
-                    source_expansion.push(map_source+i);
-                }
-                if source_expansion.contains(&source){
-                    source = destination_expansion[source_expansion.iter().position(|el| *el == source ).unwrap()];
+                // for i in 0..map_range{
+                //     destination_expansion.push(map_destination+i);
+                //     source_expansion.push(map_source+i);
+                // }
+                // if source_expansion.contains(&source){
+                //     source = destination_expansion[source_expansion.iter().position(|el| *el == source ).unwrap()];
+                //     break;
+                // }
+                if source >= map_source && source <= map_source + map_range - 1{
+                    source = map_destination + (source - map_source);
                     break;
                 }
-                // println!("{:?}{:?}", destination_expansion, source_expansion);
+                println!("{}{}{}", map_destination, map_source, map_range);
             }
         }
         sources.push(source);

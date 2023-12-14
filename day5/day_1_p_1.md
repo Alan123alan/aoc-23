@@ -57,3 +57,38 @@ iterate through every seed given and initialize the source to the value seed
 every seed gets mapped by every map from source to a new destination
 update the source to the destination after each new mapping
 
+will avoid expansion of the range of sources and destinations reduce processing time?
+every time the vec expands out of capacity it is suppossed to allocate more memory, is this the main issue?
+
+program executes in a few seconds after removing this code:
+```Rust
+
+for i in 0..map_range{
+    destination_expansion.push(map_destination+i);
+    source_expansion.push(map_source+i);
+}
+ 
+```
+
+total positions goes from 0 to map_range-1
+
+if source  exists within the (map_source) <-> (map_source + map_range -1)
+
+you should be able to get the difference/ index/ #steps by subtracting the map_source from the source
+
+example
+
+| Destination | Source | Range |
+| -- | -- | -- |
+| 52 | 50 | 48 |
+
+and assume our seed is 56
+we set our source to the seed value
+check if the source exists within the 50-97 range (it does)
+subtract 56 - 50 and get the difference/index/#steps = 6
+add 6 + 52 and get the destination mapping = 58
+update the source to the destination mapping obtained
+
+Does this work in practice?
+
+
